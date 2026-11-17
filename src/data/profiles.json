@@ -1,0 +1,274 @@
+
+[
+    {
+      "id": "user-1",
+      "name": "Aarav Sharma",
+      "age": 22,
+      "photo": "https://i.pravatar.cc/600?img=12",
+      "bio": "Coffee lover, traveller and weekend explorer.",
+      "city": "Delhi",
+      "interests": ["Travel", "Photography", "Music"]
+    },
+    {
+      "id": "user-2",
+      "name": "Priya Verma",
+      "age": 21,
+      "photo": "https://i.pravatar.cc/600?img=47",
+      "bio": "Book lover who believes in meaningful connections.",
+      "city": "Meerut",
+      "interests": ["Reading", "Art", "Coffee"]
+    },
+    {
+      "id": "user-3",
+      "name": "Rohan Gupta",
+      "age": 23,
+      "photo": "https://i.pravatar.cc/600?img=13",
+      "bio": "Gym, good food and spontaneous road trips.",
+      "city": "Noida",
+      "interests": ["Fitness", "Food", "Travel"]
+    },
+    {
+      "id": "user-4",
+      "name": "Ananya Singh",
+      "age": 22,
+      "photo": "https://i.pravatar.cc/600?img=44",
+      "bio": "Dancing through life one song at a time.",
+      "city": "Delhi",
+      "interests": ["Dance", "Music", "Fashion"]
+    },
+    {
+      "id": "user-5",
+      "name": "Kabir Malhotra",
+      "age": 24,
+      "photo": "https://i.pravatar.cc/600?img=14",
+      "bio": "Startup enthusiast and adventure seeker.",
+      "city": "Gurgaon",
+      "interests": ["Technology", "Startups", "Travel"]
+    },
+    {
+      "id": "user-6",
+      "name": "Meera Kapoor",
+      "age": 21,
+      "photo": "https://i.pravatar.cc/600?img=45",
+      "bio": "Artist by heart, foodie by choice.",
+      "city": "Jaipur",
+      "interests": ["Painting", "Food", "Movies"]
+    },
+    {
+      "id": "user-7",
+      "name": "Aditya Jain",
+      "age": 23,
+      "photo": "https://i.pravatar.cc/600?img=15",
+      "bio": "Football, coding and late-night conversations.",
+      "city": "Ghaziabad",
+      "interests": ["Football", "Coding", "Gaming"]
+    },
+    {
+      "id": "user-8",
+      "name": "Isha Agarwal",
+      "age": 22,
+      "photo": "https://i.pravatar.cc/600?img=46",
+      "bio": "Exploring new places and collecting memories.",
+      "city": "Lucknow",
+      "interests": ["Travel", "Photography", "Books"]
+    },
+    {
+      "id": "user-9",
+      "name": "Arjun Mehta",
+      "age": 25,
+      "photo": "https://i.pravatar.cc/600?img=16",
+      "bio": "Fitness freak and mountain lover.",
+      "city": "Chandigarh",
+      "interests": ["Gym", "Hiking", "Music"]
+    },
+    {
+      "id": "user-10",
+      "name": "Sanya Roy",
+      "age": 21,
+      "photo": "https://i.pravatar.cc/600?img=48",
+      "bio": "Living for sunsets and good conversations.",
+      "city": "Kolkata",
+      "interests": ["Nature", "Music", "Travel"]
+    },
+    {
+      "id": "user-11",
+      "name": "Vivaan Khanna",
+      "age": 24,
+      "photo": "https://i.pravatar.cc/600?img=17",
+      "bio": "Music producer and coffee addict.",
+      "city": "Mumbai",
+      "interests": ["Music", "Technology", "Coffee"]
+    },
+    {
+      "id": "user-12",
+      "name": "Aditi Mishra",
+      "age": 23,
+      "photo": "https://i.pravatar.cc/600?img=49",
+      "bio": "Dancer, dreamer and hopeless romantic.",
+      "city": "Varanasi",
+      "interests": ["Dance", "Movies", "Art"]
+    },
+    {
+      "id": "user-13",
+      "name": "Karan Bansal",
+      "age": 22,
+      "photo": "https://i.pravatar.cc/600?img=18",
+      "bio": "Tech geek who loves exploring the world.",
+      "city": "Bangalore",
+      "interests": ["Coding", "Travel", "Gaming"]
+    },
+    {
+      "id": "user-14",
+      "name": "Riya Malhotra",
+      "age": 21,
+      "photo": "https://i.pravatar.cc/600?img=50",
+      "bio": "Fashion enthusiast and dessert lover.",
+      "city": "Delhi",
+      "interests": ["Fashion", "Food", "Shopping"]
+    },
+    {
+      "id": "user-15",
+      "name": "Dev Patel",
+      "age": 24,
+      "photo": "https://i.pravatar.cc/600?img=19",
+      "bio": "Cricket fan and weekend explorer.",
+      "city": "Ahmedabad",
+      "interests": ["Cricket", "Travel", "Fitness"]
+    },
+    {
+      "id": "user-16",
+      "name": "Kavya Nair",
+      "age": 22,
+      "photo": "https://i.pravatar.cc/600?img=51",
+      "bio": "Nature lover with a creative soul.",
+      "city": "Kochi",
+      "interests": ["Nature", "Painting", "Reading"]
+    },
+    {
+      "id": "user-17",
+      "name": "Reyansh Sinha",
+      "age": 23,
+      "photo": "https://i.pravatar.cc/600?img=20",
+      "bio": "Basketball, music and long drives.",
+      "city": "Pune",
+      "interests": ["Basketball", "Music", "Cars"]
+    },
+    {
+      "id": "user-18",
+      "name": "Nisha Reddy",
+      "age": 21,
+      "photo": "https://i.pravatar.cc/600?img=52",
+      "bio": "Always looking for my next adventure.",
+      "city": "Hyderabad",
+      "interests": ["Adventure", "Travel", "Food"]
+    },
+    {
+      "id": "user-19",
+      "name": "Siddharth Rao",
+      "age": 25,
+      "photo": "https://i.pravatar.cc/600?img=21",
+      "bio": "Entrepreneur, reader and fitness enthusiast.",
+      "city": "Mumbai",
+      "interests": ["Business", "Reading", "Gym"]
+    },
+    {
+      "id": "user-20",
+      "name": "Tanya Bose",
+      "age": 22,
+      "photo": "https://i.pravatar.cc/600?img=53",
+      "bio": "Film lover and amateur photographer.",
+      "city": "Kolkata",
+      "interests": ["Movies", "Photography", "Art"]
+    },
+    {
+      "id": "user-21",
+      "name": "Dhruv Arora",
+      "age": 23,
+      "photo": "https://i.pravatar.cc/600?img=22",
+      "bio": "Football lover and aspiring developer.",
+      "city": "Noida",
+      "interests": ["Football", "Coding", "Music"]
+    },
+    {
+      "id": "user-22",
+      "name": "Simran Kaur",
+      "age": 24,
+      "photo": "https://i.pravatar.cc/600?img=54",
+      "bio": "Punjabi music and spontaneous trips.",
+      "city": "Amritsar",
+      "interests": ["Music", "Travel", "Dance"]
+    },
+    {
+      "id": "user-23",
+      "name": "Ishaan Das",
+      "age": 22,
+      "photo": "https://i.pravatar.cc/600?img=23",
+      "bio": "Anime, gaming and everything creative.",
+      "city": "Bangalore",
+      "interests": ["Anime", "Gaming", "Technology"]
+    },
+    {
+      "id": "user-24",
+      "name": "Pooja Yadav",
+      "age": 21,
+      "photo": "https://i.pravatar.cc/600?img=55",
+      "bio": "Making memories and chasing dreams.",
+      "city": "Lucknow",
+      "interests": ["Books", "Travel", "Cooking"]
+    },
+    {
+      "id": "user-25",
+      "name": "Manav Shah",
+      "age": 24,
+      "photo": "https://i.pravatar.cc/600?img=24",
+      "bio": "Foodie who loves discovering hidden cafes.",
+      "city": "Surat",
+      "interests": ["Food", "Coffee", "Photography"]
+    },
+    {
+      "id": "user-26",
+      "name": "Diya Chawla",
+      "age": 22,
+      "photo": "https://i.pravatar.cc/600?img=56",
+      "bio": "Yoga, meditation and peaceful mornings.",
+      "city": "Rishikesh",
+      "interests": ["Yoga", "Nature", "Fitness"]
+    },
+    {
+      "id": "user-27",
+      "name": "Yash Thakur",
+      "age": 23,
+      "photo": "https://i.pravatar.cc/600?img=25",
+      "bio": "Bike rides and mountain adventures.",
+      "city": "Dehradun",
+      "interests": ["Biking", "Hiking", "Travel"]
+    },
+    {
+      "id": "user-28",
+      "name": "Ayesha Khan",
+      "age": 21,
+      "photo": "https://i.pravatar.cc/600?img=57",
+      "bio": "Creative mind and lover of all things art.",
+      "city": "Bhopal",
+      "interests": ["Art", "Fashion", "Music"]
+    },
+    {
+      "id": "user-29",
+      "name": "Neil Fernandes",
+      "age": 25,
+      "photo": "https://i.pravatar.cc/600?img=26",
+      "bio": "Beach lover, swimmer and travel addict.",
+      "city": "Goa",
+      "interests": ["Swimming", "Travel", "Sports"]
+    },
+    {
+      "id": "user-30",
+      "name": "Mahi Saxena",
+      "age": 22,
+      "photo": "https://i.pravatar.cc/600?img=58",
+      "bio": "Sunsets, poetry and meaningful conversations.",
+      "city": "Meerut",
+      "interests": ["Poetry", "Reading", "Music"]
+    }
+  ]
+  
