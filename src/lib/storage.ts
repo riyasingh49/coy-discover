@@ -17,8 +17,30 @@ const STORE_PATH = path.join(
 export async function readStore(): Promise<StoreData> {
   try {
     const data = await readFile(STORE_PATH, "utf-8");
-    return JSON.parse(data) as StoreData;
-  } catch {
+    const parsed: unknown = JSON.parse(data);
+
+    if (
+      typeof parsed !== "object" ||
+      parsed === null ||
+      !("swipes" in parsed) ||
+      !("matches" in parsed) ||
+      !Array.isArray(parsed.swipes) ||
+      !Array.isArray(parsed.matches)
+    ) {
+      throw new Error("Store file has an invalid format.");
+    }
+
+    return parsed as StoreData;
+  } catch (error) {
+    const isMissingFile =
+      error instanceof Error &&
+      "code" in error &&
+      error.code === "ENOENT";
+
+    if (!isMissingFile) {
+      throw error;
+    }
+
     const initialData: StoreData = {
       swipes: [],
       matches: [],

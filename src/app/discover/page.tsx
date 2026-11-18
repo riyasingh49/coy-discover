@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Heart, RefreshCw, Sparkles } from "lucide-react";
+import { Heart, Sparkles } from "lucide-react";
 import type { Profile } from "@/types";
 import ProfileCard from "@/components/ProfileCard";
 import SwipeButtons from "@/components/SwipeButtons";
@@ -48,26 +48,6 @@ export default function DiscoverPage() {
       cancelled = true;
     };
   }, []);
-
-  async function loadProfiles() {
-    setLoading(true);
-    setError("");
-
-    try {
-      const response = await fetch("/api/feed");
-
-      if (!response.ok) {
-        throw new Error("Failed to refresh profiles.");
-      }
-
-      const data = await response.json();
-      setProfiles(data.profiles);
-    } catch {
-      setError("Unable to refresh profiles. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  }
 
   async function handleSwipe(action: "LIKE" | "PASS") {
     const currentProfile = profiles[0];
@@ -151,14 +131,6 @@ export default function DiscoverPage() {
             title="You've seen everyone!"
             description="You've explored all available profiles. Come back later to discover more people."
           />
-
-          <button
-            onClick={loadProfiles}
-            className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-pink-600 px-5 py-3 font-semibold text-white transition hover:bg-pink-700"
-          >
-            <RefreshCw className="h-4 w-4" />
-            Refresh profiles
-          </button>
         </div>
       ) : (
         <div className="mx-auto flex max-w-md flex-col items-center">

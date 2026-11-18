@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { motion, useMotionValue, useTransform } from "motion/react";
 import { Heart, X } from "lucide-react";
 import type { Profile } from "@/types";
@@ -16,8 +15,6 @@ export default function ProfileCard({
   onSwipe,
   disabled = false,
 }: ProfileCardProps) {
-  const [exiting, setExiting] = useState(false);
-
   const x = useMotionValue(0);
 
   const rotate = useTransform(x, [-200, 200], [-15, 15]);
@@ -25,20 +22,18 @@ export default function ProfileCard({
   const passOpacity = useTransform(x, [-120, -30], [1, 0]);
 
   function handleDragEnd() {
-    if (disabled || exiting) return;
+    if (disabled) return;
 
     if (x.get() > 120) {
-      setExiting(true);
       onSwipe?.("LIKE");
     } else if (x.get() < -120) {
-      setExiting(true);
       onSwipe?.("PASS");
     }
   }
 
   return (
     <motion.div
-      drag={!disabled && !exiting ? "x" : false}
+      drag={!disabled ? "x" : false}
       dragConstraints={{ left: 0, right: 0 }}
       dragElastic={0.8}
       onDragEnd={handleDragEnd}
