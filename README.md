@@ -1,4 +1,4 @@
-# Coy Discover 💗
+# Coy Discover 
 
 Coy Discover is a swipe-based profile discovery application built as part of an internship assignment. It helps users discover interesting people, express interest through likes, and create meaningful connections through mutual matching.
 
@@ -168,4 +168,4 @@ GitHub: https://github.com/riyasingh49
 
 ---
 
-*Built with ❤️ as part of an internship assignment.*
+*Built as part of an internship assignment.*
