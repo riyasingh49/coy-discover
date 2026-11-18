@@ -2,8 +2,6 @@ import { NextResponse } from "next/server";
 import { getFeed } from "@/lib/profile";
 import { seedDemoLikes } from "@/lib/storage";
 
-export const runtime = "nodejs";
-
 export async function GET() {
   try {
     // Add demo incoming likes (only once per profile)

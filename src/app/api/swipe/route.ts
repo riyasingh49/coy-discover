@@ -2,8 +2,6 @@ import { NextResponse } from "next/server";
 import { recordSwipe } from "@/lib/swipe";
 import type { SwipeAction } from "@/types";
 
-export const runtime = "nodejs";
-
 export async function POST(request: Request) {
   try {
     const body = await request.json();

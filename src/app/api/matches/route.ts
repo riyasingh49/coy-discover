@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { getMatches } from "@/lib/profile";
 
-export const runtime = "nodejs";
-
 export async function GET() {
   try {
     const matches = await getMatches();
