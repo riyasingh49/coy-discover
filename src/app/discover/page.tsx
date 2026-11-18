@@ -2,19 +2,19 @@
 
 import { useEffect, useState } from "react";
 import { Heart, RefreshCw, Sparkles } from "lucide-react";
-
 import type { Profile } from "@/types";
 import ProfileCard from "@/components/ProfileCard";
 import SwipeButtons from "@/components/SwipeButtons";
+import MatchModal from "@/components/MatchModal";
+import EmptyState from "@/components/EmptyState";
 
 export default function DiscoverPage() {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [loading, setLoading] = useState(true);
   const [swiping, setSwiping] = useState(false);
   const [error, setError] = useState("");
-  const [showMatch, setShowMatch] = useState(false);
+  const [matchedProfile, setMatchedProfile] = useState<Profile | null>(null);
 
-  // Fetch profiles when the page loads
   useEffect(() => {
     let cancelled = false;
 
@@ -23,7 +23,7 @@ export default function DiscoverPage() {
         const response = await fetch("/api/feed");
 
         if (!response.ok) {
-          throw new Error("Could not load profiles.");
+          throw new Error("Failed to load profiles.");
         }
 
         const data = await response.json();
@@ -33,7 +33,7 @@ export default function DiscoverPage() {
         }
       } catch {
         if (!cancelled) {
-          setError("Something went wrong while loading profiles.");
+          setError("Unable to load profiles. Please try again.");
         }
       } finally {
         if (!cancelled) {
@@ -49,37 +49,35 @@ export default function DiscoverPage() {
     };
   }, []);
 
-  // Refresh profiles manually
   async function loadProfiles() {
-    try {
-      setLoading(true);
-      setError("");
+    setLoading(true);
+    setError("");
 
+    try {
       const response = await fetch("/api/feed");
 
       if (!response.ok) {
-        throw new Error("Could not load profiles.");
+        throw new Error("Failed to refresh profiles.");
       }
 
       const data = await response.json();
       setProfiles(data.profiles);
     } catch {
-      setError("Something went wrong while loading profiles.");
+      setError("Unable to refresh profiles. Please try again.");
     } finally {
       setLoading(false);
     }
   }
 
-  // Handle Like and Pass
   async function handleSwipe(action: "LIKE" | "PASS") {
     const currentProfile = profiles[0];
 
     if (!currentProfile || swiping) return;
 
-    try {
-      setSwiping(true);
-      setError("");
+    setSwiping(true);
+    setError("");
 
+    try {
       const response = await fetch("/api/swipe", {
         method: "POST",
         headers: {
@@ -91,35 +89,35 @@ export default function DiscoverPage() {
         }),
       });
 
-      if (!response.ok) {
-        throw new Error("Could not save your swipe.");
-      }
-
       const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Swipe failed.");
+      }
 
       setProfiles((current) =>
         current.filter((profile) => profile.id !== currentProfile.id)
       );
 
-      if (action === "LIKE" && result.matched) {
-        setShowMatch(true);
+      if (action === "LIKE" && result.isMatch) {
+        setMatchedProfile(currentProfile);
       }
-    } catch {
-      setError("Your swipe could not be saved. Please try again.");
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again."
+      );
     } finally {
       setSwiping(false);
     }
   }
 
-  // Loading screen
   if (loading) {
     return (
-      <main className="flex min-h-[80vh] items-center justify-center">
+      <main className="flex min-h-[70vh] items-center justify-center">
         <div className="text-center">
-          <Sparkles
-            className="mx-auto mb-3 animate-pulse text-pink-500"
-            size={36}
-          />
+          <Heart className="mx-auto mb-3 h-10 w-10 animate-pulse text-pink-500" />
           <p className="text-gray-500">Finding people for you...</p>
         </div>
       </main>
@@ -127,87 +125,73 @@ export default function DiscoverPage() {
   }
 
   return (
-    <main className="min-h-screen bg-pink-50/50 px-4 py-8">
-      <div className="mx-auto max-w-xl">
-        <div className="mb-7 text-center">
+    <main className="mx-auto min-h-[80vh] max-w-5xl px-4 py-10">
+      <div className="mb-8 text-center">
+        <div className="mb-2 flex items-center justify-center gap-2">
+          <Sparkles className="h-6 w-6 text-pink-500" />
           <h1 className="text-3xl font-bold text-gray-900">
-            Discover <span className="text-pink-500">people</span>
+            Discover
           </h1>
-          <p className="mt-2 text-gray-500">
-            Find someone who shares your vibe.
-          </p>
         </div>
 
-        {error && (
-          <div className="mb-5 rounded-xl bg-red-50 p-3 text-center text-sm text-red-600">
-            {error}
-          </div>
-        )}
+        <p className="text-gray-500">
+          Find interesting people and make meaningful connections.
+        </p>
+      </div>
 
-        {profiles.length > 0 ? (
-          <>
-            <div className="flex justify-center">
-              <ProfileCard profile={profiles[0]} />
-            </div>
+      {error && (
+        <div className="mx-auto mb-5 max-w-md rounded-xl bg-red-50 p-3 text-center text-sm text-red-600">
+          {error}
+        </div>
+      )}
 
+      {profiles.length === 0 ? (
+        <div className="mx-auto max-w-md">
+          <EmptyState
+            title="You've seen everyone!"
+            description="You've explored all available profiles. Come back later to discover more people."
+          />
+
+          <button
+            onClick={loadProfiles}
+            className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-pink-600 px-5 py-3 font-semibold text-white transition hover:bg-pink-700"
+          >
+            <RefreshCw className="h-4 w-4" />
+            Refresh profiles
+          </button>
+        </div>
+      ) : (
+        <div className="mx-auto flex max-w-md flex-col items-center">
+          <ProfileCard
+            key={profiles[0].id}
+            profile={profiles[0]}
+            onSwipe={handleSwipe}
+            disabled={swiping}
+          />
+
+          <div className="mt-6 w-full">
             <SwipeButtons
               onLike={() => handleSwipe("LIKE")}
               onPass={() => handleSwipe("PASS")}
               disabled={swiping}
             />
-
-            <p className="text-center text-xs text-gray-400">
-              {profiles.length}{" "}
-              {profiles.length === 1 ? "profile" : "profiles"} remaining
-            </p>
-          </>
-        ) : (
-          <div className="rounded-3xl bg-white px-6 py-16 text-center shadow-sm">
-            <Heart className="mx-auto mb-4 text-pink-400" size={48} />
-
-            <h2 className="text-2xl font-bold text-gray-800">
-              {"You're all caught up!"}
-            </h2>
-
-            <p className="mt-2 text-gray-500">
-              You&#39;ve discovered everyone for now. Come back later for more!
-            </p>
-
-            <button
-              onClick={loadProfiles}
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-pink-500 px-6 py-3 font-semibold text-white hover:bg-pink-600"
-            >
-              <RefreshCw size={18} />
-              Refresh
-            </button>
           </div>
-        )}
-      </div>
 
-      {showMatch && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-5">
-          <div className="w-full max-w-sm rounded-3xl bg-white p-8 text-center shadow-2xl">
-            <Sparkles
-              className="mx-auto mb-4 text-pink-500"
-              size={48}
-            />
+          <p className="mt-5 text-center text-xs text-gray-400">
+            Swipe left to pass or right to like
+          </p>
 
-            <h2 className="text-3xl font-bold text-pink-500">
-              It&#39;s a Match!
-            </h2>
-
-            <p className="mt-3 text-gray-600">
-              You both liked each other. Let the connection begin!
-            </p>
-
-            <button
-              onClick={() => setShowMatch(false)}
-              className="mt-7 w-full rounded-full bg-pink-500 px-6 py-3 font-semibold text-white hover:bg-pink-600"
-            >
-              Keep Discovering
-            </button>
-          </div>
+          <p className="mt-1 text-center text-xs text-gray-400">
+            {profiles.length} profiles remaining
+          </p>
         </div>
+      )}
+
+      {matchedProfile && (
+        <MatchModal
+          profile={matchedProfile}
+          onClose={() => setMatchedProfile(null)}
+        />
       )}
     </main>
   );

@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Heart, Sparkles, Users } from "lucide-react";
-
+import { Heart, Users } from "lucide-react";
 import type { Profile } from "@/types";
 import EmptyState from "@/components/EmptyState";
 
@@ -29,7 +28,7 @@ export default function MatchesPage() {
         }
       } catch {
         if (!cancelled) {
-          setError("Something went wrong while loading matches.");
+          setError("Something went wrong while loading your matches.");
         }
       } finally {
         if (!cancelled) {
@@ -47,107 +46,88 @@ export default function MatchesPage() {
 
   if (loading) {
     return (
-      <main className="flex min-h-[80vh] items-center justify-center">
-        <div className="text-center">
-          <Heart className="mx-auto mb-3 animate-pulse text-pink-500" size={36} />
-          <p className="text-gray-500">Finding your matches...</p>
-        </div>
+      <main className="mx-auto max-w-5xl px-4 py-12 text-center">
+        <p className="text-gray-500">Loading your matches...</p>
+      </main>
+    );
+  }
+
+  if (error) {
+    return (
+      <main className="mx-auto max-w-5xl px-4 py-12 text-center">
+        <p className="text-red-500">{error}</p>
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-pink-50/50 px-4 py-10">
-      <div className="mx-auto max-w-5xl">
-
-        {/* Heading */}
-        <div className="mb-10 text-center">
-          <div className="mb-3 flex justify-center">
-            <div className="rounded-2xl bg-pink-100 p-3 text-pink-500">
-              <Sparkles size={28} />
-            </div>
-          </div>
-
+    <main className="mx-auto max-w-5xl px-4 py-10">
+      <div className="mb-8">
+        <div className="mb-2 flex items-center gap-2">
+          <Heart className="h-7 w-7 fill-pink-500 text-pink-500" />
           <h1 className="text-3xl font-bold text-gray-900">
-            Your <span className="text-pink-500">Matches</span>
+            Your Matches
           </h1>
-
-          <p className="mt-2 text-gray-500">
-            People who liked you back. Let the connection begin!
-          </p>
         </div>
 
-        {/* Error */}
-        {error && (
-          <div className="mb-6 rounded-xl bg-red-50 p-4 text-center text-red-600">
-            {error}
-          </div>
-        )}
+        <p className="text-gray-500">
+          People who liked you back. Start making connections!
+        </p>
+      </div>
 
-        {/* Match count */}
-        <div className="mb-6 flex items-center gap-2 text-gray-600">
-          <Users size={20} className="text-pink-500" />
-          <span>
-            {matches.length} {matches.length === 1 ? "match" : "matches"}
-          </span>
-        </div>
+      {matches.length === 0 ? (
+        <EmptyState
+          title="No matches yet"
+          description="Keep discovering profiles. When you and someone else like each other, you'll find them here."
+        />
+      ) : (
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {matches.map((profile) => (
+            <article
+              key={profile.id}
+              className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+            >
+              <img
+                src={profile.photo}
+                alt={profile.name}
+                className="h-64 w-full object-cover"
+              />
 
-        {/* Matches grid */}
-        {matches.length > 0 ? (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {matches.map((profile) => (
-              <div
-                key={profile.id}
-                className="overflow-hidden rounded-3xl bg-white shadow-lg shadow-pink-100 transition hover:-translate-y-1"
-              >
-                <div className="relative h-64">
-                  <img
-                    src={profile.photo}
-                    alt={profile.name}
-                    className="h-full w-full object-cover"
-                  />
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <h2 className="text-2xl font-bold">
-                      {profile.name}, {profile.age}
-                    </h2>
-                    <p className="mt-1 text-sm">
-                      📍 {profile.city}
-                    </p>
-                  </div>
-
-                  <div className="absolute right-4 top-4 rounded-full bg-white p-2 text-pink-500">
-                    <Heart size={20} fill="currentColor" />
-                  </div>
+              <div className="p-5">
+                <div className="mb-2 flex items-center justify-between">
+                  <h2 className="text-xl font-bold text-gray-900">
+                    {profile.name}, {profile.age}
+                  </h2>
+                  <Heart className="h-5 w-5 fill-pink-500 text-pink-500" />
                 </div>
 
-                <div className="p-5">
-                  <p className="mb-4 text-sm leading-relaxed text-gray-600">
-                    {profile.bio}
-                  </p>
+                <p className="mb-3 text-sm text-gray-500">
+                  {profile.city}
+                </p>
 
-                  <div className="flex flex-wrap gap-2">
-                    {profile.interests.map((interest) => (
-                      <span
-                        key={interest}
-                        className="rounded-full bg-pink-50 px-3 py-1 text-xs font-medium text-pink-600"
-                      >
-                        {interest}
-                      </span>
-                    ))}
-                  </div>
+                <p className="mb-4 text-sm text-gray-700">
+                  {profile.bio}
+                </p>
+
+                <div className="flex flex-wrap gap-2">
+                  {profile.interests.map((interest) => (
+                    <span
+                      key={interest}
+                      className="rounded-full bg-pink-50 px-3 py-1 text-xs font-medium text-pink-700"
+                    >
+                      {interest}
+                    </span>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
-        ) : (
-          <EmptyState
-            title="No matches yet"
-            description="Keep discovering people. When someone you like likes you back, you'll find them here!"
-          />
-        )}
+            </article>
+          ))}
+        </div>
+      )}
+
+      <div className="mt-8 flex items-center justify-center gap-2 text-sm text-gray-400">
+        <Users className="h-4 w-4" />
+        {matches.length} mutual {matches.length === 1 ? "match" : "matches"}
       </div>
     </main>
   );
